@@ -8,6 +8,7 @@ except:
 
 import os
 from evil_twin import evil_twin
+from DnsSpoofing import DnsSpoofing
 
 
 def logo():
@@ -44,5 +45,17 @@ def wirefox():
         iface = input("[^] (monitor interface name)-> ")
         EvilTwin(iface)
 
+    elif option == "3":
+        hosts = input(u"\u001b[33;1m[^] (All dns spoofing or just Config hosts? A/C) # ")
+        if hosts == "A" or hosts == "a" or hosts == "all" or hosts == "All":
+            ip = input(u"\n\u001b[33;1m[^] (IP For Spoof)-> ")
+            os.system("iptables -I INPUT -d 192.168.1.0/24 -j NFQUEUE --queue-num 0")
+            DnsSpoofing.start(ip)
+        elif hosts == "C" or hosts == "c" or hosts == "Config" or hosts == "config":
+            try:
+                DnsSpoofing.start()
+            except:
+                os.system("iptables --flush")
+                sys.exit(1)
 
 wirefox()
