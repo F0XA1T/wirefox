@@ -1,9 +1,23 @@
 import sys
+import getpass
+
+username = getpass.getuser()
+if username != "root":
+    print(u"\u001b[37myou have no root access but you think are in progress! :D")
+    sys.exit(1)
+
+del username
 
 try:
     from scapy.all import *
 except:
     print("Scapy is not installed!, please run <python3 install.py>")
+    sys.exit(2)
+
+try:
+    import netfilterqueue
+except:
+    print("Netfilterqueue is not installed!, please run <python3 install.py>")
     sys.exit(2)
 
 import os
