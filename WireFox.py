@@ -10,6 +10,7 @@ import os
 from evil_twin import evil_twin
 from DnsSpoofing import DnsSpoofing
 from PacketInjection import PacketInject
+from ArpSpoofing import ArpSpoof
 
 
 def logo():
@@ -45,6 +46,24 @@ def wirefox():
     if option == "1":
         iface = input("[^] (monitor interface name)-> ")
         EvilTwin(iface)
+
+    elif option == "2":
+        target_ip = input(u"\u001b[33;1m[^] (Target IP)-> ")
+        print(u"\u001b[32;1m[*] Set {0} Target IP".format(target_ip))
+        target2_ip = input(u"\u001b[33;1m[^] (Target2 IP)-> ")
+        print(u"\u001b[32;1m[*] Set {0} Target2 IP".format(target2_ip))
+        try:
+            ArpSpoof.start(target_ip, target2_ip)
+        except KeyboardInterrupt:
+            try:
+                ArpSpoof.stop(target_ip, target2_ip)
+            except:
+                print(u"\u001b[31;1m[!] Not Restoring!!!")
+                sys.exit(2)
+        except:
+            input(u"\u001b[31;1m[!] IP address not found![Try again!]")
+            wirefox()
+
 
     elif option == "3":
         hosts = input(u"\u001b[33;1m[^] (All dns spoofing or just Config hosts? A/C) # ")
