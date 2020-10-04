@@ -31,7 +31,7 @@ def configs(iface):
     else:
         print(u"\u001b[32;1m[*] Set {0} Target channel!".format(channel))
 
-    ethstat = input(u"\u001b[33;1m[^] (interface for redirect packets)-> ")
+    ethstat = input(u"\u001b[33;1m[^] (interface for forward packets)-> ")
     if ethstat == "" or ethstat == " ":
         eth = None
     else:
@@ -64,7 +64,7 @@ def start(iface):
     methods.iptables(config["eth"], config["ifacemon"])
     ipforward = input("[^] IP forward on/off: ")
     if ipforward == "on" or ipforward == "On" or ipforward == "ON":
-        print("[*] IP forward activate")
+        print(u"\u001b[32;1m[*] IP forward activate")
         methods.ipforward_on()
     elif ipforward == "off" or ipforward == "Off" or ipforward == "OFF":
         print("[*] IP forward unactivate")
