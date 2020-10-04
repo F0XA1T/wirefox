@@ -59,7 +59,7 @@ def editdnspack(pack):
     qname = pack[DNSQR].qname
 
     if qname in hosts:
-        pick[DNS].an = DNSRR(rrname=qname, rdata=hosts[qname])
+        pack[DNS].an = DNSRR(rrname=qname, rdata=hosts[qname])
         pack[DNS].ancount = 1
 
         del pack[IP].len

