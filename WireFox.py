@@ -84,10 +84,10 @@ def wirefox():
         if hosts == "A" or hosts == "a" or hosts == "all" or hosts == "All":
             ip = input(u"\n\u001b[33;1m[^] (IP For Spoof)-> ")
             print(u"\u001b[32m")
-            os.system("iptables -I INPUT -d 192.168.1.0/24 -j NFQUEUE --queue-num 0")
+            os.system("iptables -I FORWARD -j NFQUEUE --queue-num 0")
             DnsSpoofing.start(ip)
         elif hosts == "C" or hosts == "c" or hosts == "Config" or hosts == "config":
-            os.system("iptables -I INPUT -d 192.168.1.0/24 -j NFQUEUE --queue-num 0")
+            os.system("iptables -I FORWARD -j NFQUEUE --queue-num 0")
             try:
                 DnsSpoofing.start()
             except:
@@ -97,7 +97,7 @@ def wirefox():
     elif option == "4":
         try:
             file = input(u"\u001b[33;1m[^] (File address for inject)-> ")
-            os.system("iptables -I INPUT -d 192.168.1.0/24 -j NFQUEUE --queue-num 0")
+            os.system("iptables -I FORWARD -j NFQUEUE --queue-num 0")
 
             PacketInject.start(file)
 
