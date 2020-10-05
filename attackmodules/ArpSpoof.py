@@ -66,3 +66,4 @@ def stop(target_ip, getawey_ip):
 
     for i in range(0, 15):
         comin(target_ip, getawey_ip, target_mac, getawey_mac)
+        comin(getawey_ip, target_ip, getawey_mac, target_mac)
