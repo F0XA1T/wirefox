@@ -21,10 +21,10 @@ except:
     sys.exit(2)
 
 import os
-from evil_twin import evil_twin
-from DnsSpoofing import DnsSpoofing
-from PacketInjection import PacketInject
-from ArpSpoofing import ArpSpoof
+from attackmodules import evil_twin
+from attackmodules import DnsSpoofing
+from attackmodules import PacketInject
+from attackmodules import ArpSpoof
 
 
 def logo():
