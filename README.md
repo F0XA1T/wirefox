@@ -1,7 +1,7 @@
 # ^~WireFox~^
 ![](https://img.shields.io/badge/Type-NetworkTool-yellow) ![](https://img.shields.io/badge/Version-1.0.0-blue) ![](https://img.shields.io/badge/language-Python-inactive)
 
-![](https://pasteboard.co/JucHJRZ.png)
+![](https://img.techpowerup.org/201005/screenshot-from-2020-10-05-10-59-52.png)
 
 ## What is WireFox?
 wirefox is network **security/hacking** tool
