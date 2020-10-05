@@ -51,7 +51,7 @@ def wirefox():
                    {2}--ArpSpoofing
                    {3}--DnsSpoofing
                    {4}--PacketInjection
-                   {5}--WifiHacing\u001b[0m
+                   {5}--WifiHacking\u001b[0m
 
 
           """)
