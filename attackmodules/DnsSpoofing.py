@@ -42,15 +42,18 @@ def allpackmain(pack):
 
 
 def editalldnspack(pack):
-    qname = pack[DNSQR].qname
+    try:
+        qname = pack[DNSQR].qname
 
-    pack[DNS].an = DNSRR(rrname=qname, rdata=ip)
-    pack[DNS].ancount = 1
+        pack[DNS].an = DNSRR(rrname=qname, rdata=ip)
+        pack[DNS].ancount = 1
 
-    del pack[IP].len
-    del pack[IP].chksum
-    del pack[UDP].len
-    del pack[UDP].chksum
+        del pack[IP].len
+        del pack[IP].chksum
+        del pack[UDP].len
+        del pack[UDP].chksum
+    except:
+        pass
 
     return pack
 
