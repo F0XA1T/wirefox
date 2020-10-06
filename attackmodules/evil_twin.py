@@ -66,16 +66,4 @@ def start(iface):
         print("[*] IP forward unactivate")
         methods.ipforward_off()
 
-    dos = input("[^] send Deauth packet? yes/no # ")
-    if dos == "yes" or dos == "Yes" or dos == "YES":
-        clientmac = input("[^] (Client mac address[ff:ff:ff:ff:ff:ff])-> ")
-        if clientmac == "" or clientmac == " ":
-            print("[*] Set ff:ff:ff:ff:ff:ff Client mac address!")
-        wifimac = input("[^] (Wifi Bssid)-> ")
-        if wifimac == "" or wifimac == " ":
-            print("E...r")
-            sys.exit(1)
-        print("[*] Set {0} Wifi bssid!")
-        os.system("xterm -e python3 modules/Deauth.py {0} {1} {2}".format(clientmac, wifimac, iface))
-
     passsniff.start()
