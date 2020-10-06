@@ -2,6 +2,7 @@ import sys
 import os
 import random
 import time
+from faker import Faker
 from moduless import methods
 from moduless import passsniff
 
@@ -17,12 +18,7 @@ def configs(iface):
     else:
         print(u"\u001b[32;1m[*] Set {0} Target essid!".format(essid))
 
-    bssid = input(u"\u001b[33;1m[^] (Wifi bssid)-> ")
-    if bssid == "":
-        print("E...r")
-        sys.exit()
-    else:
-        print(u"\u001b[32;1m[*] Set {0} Target bssid!".format(bssid))
+    bssid = Faker().mac_address
 
     channel = input(u"\u001b[33;1m[^] (Target channel)-> ")
     if channel == "":
