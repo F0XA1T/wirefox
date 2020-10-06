@@ -53,7 +53,8 @@ def wirefox():
                    {3}--DnsSpoofing
                    {4}--PacketInjection
                    {5}--Deauth
-                   {6}--DumpWifi\u001b[0m
+                   {6}--DumpWifi
+                   {7}--ArpScan\u001b[0m
 
 
           """)
@@ -144,5 +145,13 @@ def wirefox():
             sys.exit()
         print()
         os.system("python3 moduless/dump.py " + iface)
+
+    elif option == "7":
+        ip = input(u"\u001b[33;1m[^] (IP/IPRange)-> ")
+        if ip == "" or ip == " ":
+            print("E...r")
+            sys.exit()
+        print()
+        os.system("python3 attackmodules/ArpScan.py " + ip)
 
 wirefox()
