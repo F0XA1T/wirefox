@@ -12,7 +12,7 @@ you can start network attacks, ***WHATS BEST DANIT?***
 * Evil Twin
 * DnsSpoofing
 * PacketInjection
-* Wifi Hacking (Coming soon...)
+* Wifi/Wireless Hacking
 
 ## Installation
 first install [Scapy](https://github.com/secdev/scapy):
