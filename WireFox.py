@@ -43,9 +43,6 @@ Y8   I8I   88    88    88`8b   88~~~~~ 88~~~   88    88  .dPYb.
     print("\n\n")
 
 
-def EvilTwin(iface):
-    evil_twin.start(iface)
-
 def wirefox():
     logo()
     print(u"""\u001b[4m\u001b[37;1m                   {1}--EvilTwin
@@ -62,7 +59,7 @@ def wirefox():
     option = input(u"\u001b[33;1m[WireFox]-> ")
     if option == "1":
         iface = input("[^] (monitor interface name)-> ")
-        EvilTwin(iface)
+        evil_twin.start(iface)
 
     elif option == "2":
         target_ip = input(u"\u001b[33;1m[^] (Target IP)-> ")
@@ -153,5 +150,8 @@ def wirefox():
             sys.exit()
         print()
         os.system("python3 attackmodules/ArpScan.py " + ip)
+
+    else:
+        wirefox()
 
 wirefox()

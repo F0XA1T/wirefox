@@ -11,10 +11,14 @@ devices = []
 def startsniff(iface):
     print(u"\u001b[32;1m~CH~   *~*~*~BSSID~*~*~*       ~*~*~ESSID~*~*~    *~DBM~*\u001b[33;1m")
     def changechannel():
-        while True:
-            channel = random.randrange(1,14)
-            os.system("iw dev {0} set channel {1}".format(iface, channel))
-            time.sleep(0.4)
+        try:
+            while True:
+                channel = random.randrange(1,14)
+                os.system("iw dev {0} set channel {1}".format(iface, channel))
+                time.sleep(0.4)
+        except KeyboardInterrupt:
+            print("\nTHE END!\n")
+            sys.exit()
 
     def packhandler(pack):
         if pack.haslayer(Dot11Beacon):
@@ -44,5 +48,8 @@ def startsniff(iface):
 
     sniff(iface=iface, prn=packhandler)
 
-
-startsniff(sys.argv[1])
+try:
+    startsniff(sys.argv[1])
+except KeyboardInterrupt:
+    print("THE END!")
+    sys.exit()
