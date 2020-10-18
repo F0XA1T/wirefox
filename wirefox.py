@@ -130,10 +130,19 @@ def wirefox():
             sys.exit()
 
         os.system("iw dev wlan0mon set channel " + channel)
-        print(u"\u001b[34m")
 
-        Deauth.attack(client, bssid, iface)
+        def deauthattack():
+            print(u"\u001b[34m")
+            try:
+                Deauth.attack(client, bssid, iface)
+            except KeyboardInterrupt:
+                restart = input(u"\n\u001b[32;1m[!] Attack stopped, do you want to continue? y/n # ")
+                if restart == "y" or restart == "Y" or restart == "yes" or restart == "Yes":
+                    deauthattack()
+                elif restart == "n" or restart == "N" or restart == "no" or restart == "No":
+                    sys.exit()
 
+        deauthattack()
 
     elif option == "6":
         iface = input(u"\u001b[33;1m[^] (Monitor interface)-> ")
